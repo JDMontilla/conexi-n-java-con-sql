@@ -27,10 +27,23 @@ public class Main {
             case 1:
                 System.out.println("Haz seleccionado la opción de crear");
                 System.out.print("Ingrese el nombre de la estación: ");
-                String nombreEstacion = scanner.nextLine();
-                System.out.print("Ingrese la dirección de la estación: ");
-                String direccionEstacion = scanner.nextLine();
-                conexion.crearEstacion(nombreEstacion, direccionEstacion);
+                String nombreEstacion = scanner.nextLine(); //h123
+                boolean esNumerica = true;
+
+                for (int i = 0; i < nombreEstacion.length(); i++) {
+                    if (!Character.isDigit(nombreEstacion.charAt(i))) {
+                        esNumerica = false;
+                        break;
+                    }
+                }
+
+                if (esNumerica) {
+                    System.out.println("La cadena es numérica, no se permiten solo caracteres numericos.");
+                } else {
+                    System.out.print("Ingrese la dirección de la estación: ");
+                    String direccionEstacion = scanner.nextLine();
+                    conexion.crearEstacion(nombreEstacion, direccionEstacion);
+                }
                 break;
             case 2:
                 System.out.println("Haz seleccionado la opción de Leer información");
@@ -39,15 +52,22 @@ public class Main {
             case 3:
                 System.out.println("Haz seleccionado la opción de Actualizar");
                 System.out.print("Ingrese el ID de la estación que desea actualizar: ");
-                int idEstacionActualizar = scanner.nextInt();
-                scanner.nextLine(); // Consumir la nueva línea pendiente
 
-                System.out.print("Ingrese el nuevo nombre de la estación: ");
-                String nuevoNombreEstacion = scanner.nextLine();
-                System.out.print("Ingrese la nueva dirección de la estación: ");
-                String nuevaDireccionEstacion = scanner.nextLine();
+                try {
+                    int idEstacionActualizar = scanner.nextInt();
+                    scanner.nextLine();
 
-                conexion.actualizarEstacion(idEstacionActualizar, nuevoNombreEstacion, nuevaDireccionEstacion);
+                    System.out.print("Ingrese el nuevo nombre de la estación: ");
+                    String nuevoNombreEstacion = scanner.nextLine();
+                    System.out.print("Ingrese la nueva dirección de la estación: ");
+                    String nuevaDireccionEstacion = scanner.nextLine();
+
+                    conexion.actualizarEstacion(idEstacionActualizar, nuevoNombreEstacion, nuevaDireccionEstacion);
+                } catch (Exception e){
+                    e.printStackTrace();
+                    System.out.println("solo numeros");
+                }
+
                 break;
             case 4:
                 System.out.println("Haz seleccionado la opción de Eliminar");
